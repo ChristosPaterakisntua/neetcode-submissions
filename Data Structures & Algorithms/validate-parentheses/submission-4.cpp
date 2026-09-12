@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> pars;
+        if (s.length() % 2) return false;
+        for (int i = 0; i < s.length(); ++i) {
+            char c = s[i];
+            if (isOpening(c)) {
+                pars.push(c);
+            }
+            else if (pars.empty()) return false;
+            else if (pars.top() == closing(c)) {
+                pars.pop();
+            }
+            else return false;
+        }
+        if (!pars.empty()) return false;
+        return true;
+    }
+private:
+    bool isOpening(char c) {
+        if (c == '(' || c == '{' || c == '[') return true;
+        return false;
+    }
+
+    char closing(char c) {
+        if (c == ')') return '(';
+        if (c == ']') return '[';
+        if (c == '}') return '{';
+        return ' ';
+    }
+};
